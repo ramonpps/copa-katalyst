@@ -1,73 +1,48 @@
-# React + TypeScript + Vite
+# Copa Katalyst 2026 - Simulation Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto é uma aplicação web desenvolvida como desafio técnico para o processo seletivo da **Katalyst Data Management**. O objetivo principal é simular o torneio da Copa do Mundo de 2026, desde o sorteio da fase de grupos até a consagração do campeão, com integração em tempo real com a API oficial do processo seletivo.
 
-Currently, two official plugins are available:
+##  Interface Visual
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Abaixo, os dois estados principais da aplicação:
 
-## React Compiler
+| Fase de Grupos | Resultados | Campeao | 
+| :---: | :---: | :---: |
+| ![Fase de Grupos](screenshots/grupos.png) | ![Resultados](screenshots/resultados.png) | ![Campeao](screenshots/campeao.png) | 
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+##  Funcionalidades Principais
 
-## Expanding the ESLint configuration
+- **Fluxo Automatizado:** Simulação completa do torneio, começando pelo sorteio dos grupos ao carregar a aplicação.
+- **Fase de Grupos:**
+  - Sorteio aleatório de 32 seleções em 8 grupos.
+  - Cálculo de pontuação (Vitória/Empate/Derrota) e saldo de gols (SG).
+  - Ordenação automática dos classificados para o mata-mata.
+- **Mata-Mata (Knockout Stage):**
+  - Chaveamento estruturado em formato de "pirâmide" (Oitavas até a Final).
+  - Lógica de desempate via **pênaltis** implementada com interface visual.
+  - Progressão dinâmica dos vencedores para as próximas fases.
+- **Integração de API:**
+  - Sincronização com a API `Katalyst World Cup` para registro do campeão.
+  - Tratamento de erros e respostas não-JSON da API.
+- **Interface UI/UX de Nível Sênior:**
+  - Layout com Header e Footer fixos ("App View").
+  - Design responsivo utilizando Tailwind CSS v4.
+  - Indicador visual de campeão com animação no cabeçalho.
+  - Layout de chaves em formato de pirâmide para melhor legibilidade.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+##  Tecnologias Utilizadas
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Frontend:** React (Vite) + TypeScript.
+- **Estilização:** Tailwind CSS.
+- **Gerenciamento de Estado:** Context API.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+##  Estrutura do Projeto
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **/src/api:** Gerenciamento de chamadas HTTP (cliente robusto).
+- **/src/components/brackets:** Lógica de renderização das chaves do torneio (pirâmide).
+- **/src/components/groups:** Lógica de renderização e cálculo das tabelas de grupos.
+- **/src/context:** Estado global da simulação.
+- **/src/utils:** Funções de cálculo para desempates, geração de gols e sorteios.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
