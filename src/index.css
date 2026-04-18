@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  --color-elyte: #9a1b1f;
+  --color-elyte-hover: #7a1518;
+  --color-elyte-light: #fcecec;
+  --color-elyte-bg: #fcf8f8;
+}
+
+body {
+  background-color: var(--color-elyte-bg);
+  color: #1f2937; /* gray-800 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
