@@ -2,6 +2,9 @@
 
 Este projeto é uma aplicação web desenvolvida como desafio técnico para o processo seletivo da **Katalyst Data Management**. O objetivo principal é simular o torneio da Copa do Mundo de 2026, desde o sorteio da fase de grupos até a consagração do campeão, com integração em tempo real com a API oficial do processo seletivo.
 
+##  Deploy
+- **Disponível em:** https://copa-katalyst.vercel.app/
+
 ##  Interface Visual
 
 | Fase de Grupos | Resultados | Campeao | 
