@@ -34,7 +34,7 @@ export const GroupTable: React.FC<GroupTableProps> = ({ teams }) => {
               >
                 <td className="px-3 py-3 flex items-center gap-2">
                   <span className="text-gray-400 w-4 text-right">{index + 1}º</span>
-                  <span className="truncate max-w-[120px]" title={team.nome}>{team.nome}</span>
+                  <span className="truncate max-w-30" title={team.nome}>{team.nome}</span>
                 </td>
                 <td className="px-2 py-3 text-center font-bold text-elyte">{team.points}</td>
                 <td className="px-2 py-3 text-center">{matchesPlayed}</td>

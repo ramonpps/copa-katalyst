@@ -8,7 +8,7 @@ export const getAllTeams = async (): Promise<Team[]> => {
   const data = await apiClient<any[]>('/GetAllTeams');
   
   // Imprime no console para podermos espionar a estrutura real da API
-  console.log('Estrutura de um time da API:', data[0]);
+  // console.log('Estrutura de um time da API:', data[0]);
 
   // Mapeamento defensivo: Busca o identificador independente de como a API o nomeou
   return data.map((item: any) => ({

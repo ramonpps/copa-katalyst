@@ -8,10 +8,10 @@ export default {
     extend: {
       colors: {
         elyte: {
-          DEFAULT: '#9a1b1f', // O vermelho escuro exato da logo ElyteSpark
+          DEFAULT: '#9a1b1f',
           hover: '#7a1518',
           light: '#fcecec',
-          bg: '#fcf8f8' // O fundo levemente rosado/cinza da seção de carreiras
+          bg: '#fcf8f8'
         }
       },
       fontFamily: {

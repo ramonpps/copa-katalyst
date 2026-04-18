@@ -89,13 +89,13 @@ const Dashboard: React.FC = () => {
 
           <div className="flex items-center gap-4">
             {status === 'groups_drawn' && (
-              <Button onClick={simulateGroupStage} className="!px-5 !py-2 !text-sm !font-bold shadow-none">
+              <Button onClick={simulateGroupStage} className="px-5! py-2! text-sm! font-bold! shadow-none">
                 Simular Rodadas
               </Button>
             )}
 
             {status === 'groups_simulated' && (
-              <Button onClick={simulateKnockoutStage} className="!px-5 !py-2 !text-sm !font-bold shadow-none">
+              <Button onClick={simulateKnockoutStage} className="px-5! py-2! text-sm! font-bold! shadow-none">
                 Ir para o Mata-Mata
               </Button>
             )}
@@ -104,7 +104,7 @@ const Dashboard: React.FC = () => {
               <Button
                 onClick={handleSubmitChampion}
                 disabled={isSubmittingChampion}
-                className="!px-5 !py-2 !text-sm !font-bold bg-green-700 hover:bg-green-800 border-none shadow-none"
+                className="px-5! py-2! text-sm! font-bold! bg-green-700 hover:bg-green-800 border-none shadow-none"
               >
                 {isSubmittingChampion ? (
                   <>
@@ -123,7 +123,7 @@ const Dashboard: React.FC = () => {
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                   Campeão Registrado
                 </span>
-                <Button onClick={() => window.location.reload()} className="!px-5 !py-2 !text-sm !font-bold shadow-none">
+                <Button onClick={() => window.location.reload()} className="px-5! py-2! text-sm! font-bold! shadow-none">
                   Reiniciar
                 </Button>
               </div>
@@ -144,7 +144,7 @@ const Dashboard: React.FC = () => {
           </div>
         )}
 
-        <div className="w-full max-w-[1600px] mx-auto pt-2">
+        <div className="w-full max-w-400 mx-auto pt-2">
           {errorMessage && (
             <div className="bg-red-50 border border-red-200 text-red-700 p-4 mb-6 rounded-xl shadow-sm flex items-start gap-3">
               <svg className="h-5 w-5 text-red-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -174,7 +174,7 @@ const Dashboard: React.FC = () => {
         <div className="flex items-center gap-2">
           <span>© 2026 Katalyst Data Management | Processo Seletivo Estágio</span>
           <span className="text-gray-300 hidden md:inline">|</span>
-          <span className="hidden md:inline">Candidato: <span className="font-bold text-elyte">Ramon Santos</span></span>
+          <span className="hidden md:inline">Candidato: <span className="font-bold text-elyte">Ramon Pedro Pereira Santos</span></span>
         </div>
 
         <div className="flex items-center gap-6">

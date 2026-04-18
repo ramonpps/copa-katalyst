@@ -2,8 +2,7 @@
 
 const API_BASE_URL = 'https://development-internship-api.geopostenergy.com/WorldCup';
 
-// Certifique-se de que este é o seu usuário exato do GitHub/GitLab
-const GIT_USER = 'RamonSantos'; 
+const GIT_USER = 'ramonpps'; 
 
 export const apiClient = async <T>(endpoint: string, options: RequestInit = {}): Promise<T> => {
   const headers = {

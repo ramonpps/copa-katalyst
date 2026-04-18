@@ -11,10 +11,10 @@ export const BracketsBoard: React.FC = () => {
 
   return (
     <div className="w-full overflow-x-auto pb-8">
-      <div className="min-w-[1320px] px-4">
+      <div className="min-w-330 px-4">
         <div className="flex items-start justify-center gap-4 xl:gap-6">
           {/* Oitavas - Lado A */}
-          <div className="w-[170px] xl:w-[180px] flex flex-col">
+          <div className="w-42.5 xl:w-45 flex flex-col">
             <h4 className={titleClass}>Oitavas (Lado A)</h4>
             <div className="mt-4 flex flex-col gap-4">
               {knockoutTree.roundOf16.slice(0, 4).map((m, i) => (
@@ -24,7 +24,7 @@ export const BracketsBoard: React.FC = () => {
           </div>
 
           {/* Quartas - Lado A */}
-          <div className="w-[170px] xl:w-[180px] flex flex-col">
+          <div className="w-42.5 xl:w-45 flex flex-col">
             <h4 className={titleClass}>Quartas</h4>
             <div className="mt-12 flex flex-col gap-16">
               {knockoutTree.quarterFinals.slice(0, 2).map((m) => (
@@ -34,7 +34,7 @@ export const BracketsBoard: React.FC = () => {
           </div>
 
           {/* Semifinal - Lado A */}
-          <div className="w-[170px] xl:w-[180px] flex flex-col">
+          <div className="w-42.5 xl:w-45 flex flex-col">
             <h4 className={titleClass}>Semifinal</h4>
             <div className="mt-24">
               <MatchCard match={knockoutTree.semiFinals[0]} label="Semi 1" />
@@ -42,7 +42,7 @@ export const BracketsBoard: React.FC = () => {
           </div>
 
           {/* Grande Final - Centro */}
-          <div className="w-[170px] xl:w-[180px] flex flex-col">
+          <div className="w-42.5 xl:w-45 flex flex-col">
             <h4 className="h-6 flex items-center justify-center text-center font-black text-gray-900 uppercase text-xs tracking-wide">
               Grande Final
             </h4>
@@ -52,7 +52,7 @@ export const BracketsBoard: React.FC = () => {
           </div>
 
           {/* Semifinal - Lado B */}
-          <div className="w-[170px] xl:w-45 flex flex-col">
+          <div className="w-42.5 xl:w-45 flex flex-col">
             <h4 className={titleClass}>Semifinal</h4>
             <div className="mt-24">
               <MatchCard match={knockoutTree.semiFinals[1]} label="Semi 2" />

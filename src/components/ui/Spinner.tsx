@@ -3,7 +3,6 @@ import React from 'react';
 export const Spinner: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center py-20">
-      {/* Container do SVG para simular os anéis cortados da ElyteSpark */}
       <div className="relative w-24 h-24 flex items-center justify-center">
         <svg className="absolute w-full h-full text-gray-200 animate-[spin_3s_linear_infinite]" viewBox="0 0 100 100" fill="none">
           <circle cx="50" cy="50" r="44" stroke="currentColor" strokeWidth="6" strokeDasharray="60 40" strokeLinecap="round" />
