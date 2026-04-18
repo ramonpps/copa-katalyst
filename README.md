@@ -4,8 +4,6 @@ Este projeto é uma aplicação web desenvolvida como desafio técnico para o pr
 
 ##  Interface Visual
 
-Abaixo, os dois estados principais da aplicação:
-
 | Fase de Grupos | Resultados | Campeao | 
 | :---: | :---: | :---: |
 | ![Fase de Grupos](screenshots/grupos.png) | ![Resultados](screenshots/resultados.png) | ![Campeao](screenshots/campeao.png) | 
