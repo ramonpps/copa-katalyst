@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SimulationProvider } from './context/SimulationContext';
 import { useSimulation } from './hooks/useSimulation';
 import { Button } from './components/ui/Button';
@@ -7,14 +7,17 @@ import { GroupsBoard } from './components/groups/GroupsBoard';
 import { BracketsBoard } from './components/brackets/BracketsBoard';
 
 const Dashboard: React.FC = () => {
-  const { 
-    status, 
-    errorMessage, 
-    fetchAndDrawGroups, 
-    simulateGroupStage, 
+  const {
+    status,
+    knockoutTree,
+    errorMessage,
+    fetchAndDrawGroups,
+    simulateGroupStage,
     simulateKnockoutStage,
     submitChampion
   } = useSimulation();
+
+  const [isSubmittingChampion, setIsSubmittingChampion] = useState(false);
 
   useEffect(() => {
     if (status === 'idle') {
@@ -22,12 +25,25 @@ const Dashboard: React.FC = () => {
     }
   }, [status, fetchAndDrawGroups]);
 
+  const showChampionInHeader =
+    (status === 'knockout_simulated' || status === 'finished') &&
+    !!knockoutTree?.champion?.nome;
+
+  const handleSubmitChampion = async () => {
+    if (isSubmittingChampion) return;
+
+    setIsSubmittingChampion(true);
+    try {
+      await submitChampion();
+    } finally {
+      setIsSubmittingChampion(false);
+    }
+  };
+
   return (
     <div className="h-screen flex flex-col bg-elyte-bg text-gray-800 font-sans overflow-hidden">
-      
-      {/* HEADER FIXO: Mais alto para comportar textos (h-20) */}
+      {/* HEADER FIXO */}
       <header className="bg-white shadow-sm border-b-4 border-elyte shrink-0 h-20 flex items-center justify-between px-6 relative z-10">
-        
         {/* Esquerda: Logo e Troféu */}
         <div className="flex items-center gap-3">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-elyte" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -43,10 +59,20 @@ const Dashboard: React.FC = () => {
           </h1>
         </div>
 
+        {/* Campeão centralizado no header */}
+        {showChampionInHeader && (
+          <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 animate-bounce pointer-events-none max-w-[55vw]">
+            <span className="text-xs md:text-sm font-black uppercase tracking-wide text-gray-500 whitespace-nowrap">
+              Campeão:
+            </span>
+            <span className="text-sm md:text-xl font-black text-elyte truncate">
+              {knockoutTree?.champion?.nome}
+            </span>
+          </div>
+        )}
+
         {/* Direita: Títulos de Orientação + Botões de Ação */}
         <div className="flex items-center gap-6">
-          
-          {/* Títulos de Orientação alinhados à direita do cabeçalho */}
           {status !== 'idle' && status !== 'loading' && (
             <div className="hidden xl:flex flex-col text-right justify-center">
               <h2 className="text-sm font-extrabold text-gray-900 uppercase tracking-wider">
@@ -57,44 +83,53 @@ const Dashboard: React.FC = () => {
             </div>
           )}
 
-          {/* Linha Divisória sutil entre os textos e os botões */}
           {status !== 'idle' && status !== 'loading' && (
-             <div className="w-px h-10 bg-gray-200 hidden xl:block"></div>
+            <div className="w-px h-10 bg-gray-200 hidden xl:block"></div>
           )}
 
-          {/* Botões de Ação (Tamanho reduzido com !px-4 !py-2) */}
           <div className="flex items-center gap-4">
             {status === 'groups_drawn' && (
               <Button onClick={simulateGroupStage} className="!px-5 !py-2 !text-sm !font-bold shadow-none">
                 Simular Rodadas
               </Button>
             )}
-            
+
             {status === 'groups_simulated' && (
               <Button onClick={simulateKnockoutStage} className="!px-5 !py-2 !text-sm !font-bold shadow-none">
                 Ir para o Mata-Mata
               </Button>
             )}
-            
-            {status === 'knockout_simulated' && (
-              <Button onClick={submitChampion} className="!px-5 !py-2 !text-sm !font-bold bg-green-700 hover:bg-green-800 border-none shadow-none">
-                Registrar Campeão
+
+            {(status === 'knockout_simulated' || isSubmittingChampion) && (
+              <Button
+                onClick={handleSubmitChampion}
+                disabled={isSubmittingChampion}
+                className="!px-5 !py-2 !text-sm !font-bold bg-green-700 hover:bg-green-800 border-none shadow-none"
+              >
+                {isSubmittingChampion ? (
+                  <>
+                    <span className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin"></span>
+                    Registrando...
+                  </>
+                ) : (
+                  'Registrar Campeão'
+                )}
               </Button>
             )}
 
             {status === 'finished' && (
               <div className="flex items-center gap-4">
-                 <span className="text-green-600 font-bold text-sm flex items-center gap-1">
-                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
-                   Campeão Registrado
-                 </span>
-                 <Button variant="outline" onClick={() => window.location.reload()} className="!px-4 !py-1.5 !text-xs shadow-none">
-                   Reiniciar
-                 </Button>
+                <span className="text-green-600 font-bold text-sm flex items-center gap-1">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                  Campeão Registrado
+                </span>
+                <Button onClick={() => window.location.reload()} className="!px-5 !py-2 !text-sm !font-bold shadow-none">
+                  Reiniciar
+                </Button>
               </div>
             )}
 
-            {status === 'loading' && (
+            {status === 'loading' && !isSubmittingChampion && (
               <span className="text-gray-400 text-sm italic animate-pulse">Processando...</span>
             )}
           </div>
@@ -103,14 +138,12 @@ const Dashboard: React.FC = () => {
 
       {/* ÁREA CENTRAL ROLÁVEL */}
       <main className="flex-1 overflow-y-auto p-6 md:p-10 w-full flex flex-col items-center relative">
-        
-        {status === 'loading' && (
+        {status === 'loading' && !isSubmittingChampion && (
           <div className="absolute inset-0 flex items-center justify-center bg-elyte-bg/60 backdrop-blur-sm z-50">
             <Spinner />
           </div>
         )}
 
-        {/* Corpo principal totalmente focado no conteúdo (tabelas e chaves) */}
         <div className="w-full max-w-[1600px] mx-auto pt-2">
           {errorMessage && (
             <div className="bg-red-50 border border-red-200 text-red-700 p-4 mb-6 rounded-xl shadow-sm flex items-start gap-3">
@@ -122,14 +155,13 @@ const Dashboard: React.FC = () => {
             </div>
           )}
 
-          {/* Textos removidos daqui. Chamamos direto os componentes do "Board" */}
           {(status === 'groups_drawn' || status === 'groups_simulated') && (
             <div className="animate-in fade-in duration-500">
               <GroupsBoard />
             </div>
           )}
 
-          {(status === 'knockout_simulated' || status === 'finished') && (
+          {(status === 'knockout_simulated' || status === 'finished' || isSubmittingChampion) && (
             <div className="animate-in fade-in duration-500">
               <BracketsBoard />
             </div>
